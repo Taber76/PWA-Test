@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+//import * as serviceWorker from './serviceWorker'
 import './Style.css'
 
 import { Provider } from 'react-redux'
@@ -13,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </Provider>
   </React.StrictMode>,
 )
-
+/*
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
     navigator.serviceWorker.register('/sw.js').then(function (registration) {
@@ -23,4 +24,5 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
-
+*/
+//serviceWorker.unregister()

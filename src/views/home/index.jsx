@@ -23,7 +23,7 @@ const Home = () => {
 
 	return (
 		<div className="flex flex-col min-h-[80vh] justify-center items-center overflow-hidden">
-			<img src="/warehouse.jpg" alt="warehouse" style={{ minHeight: "80vh", width: "auto", objectFit: "cover" }} />
+			<img src="/warehouse.png" alt="warehouse" style={{ minHeight: "80vh", width: "auto", objectFit: "cover" }} />
 		</div>
 
 	);
