@@ -1,16 +1,13 @@
-import { FaPlus } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { apiService } from '../../services/apiService';
-import { Modal, List } from '../../components';
+import { Modal, Table } from '../../components';
 
 const Contacts = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const [contactList, setContactList] = useState([])
-  const [deleteContact, setDeleteContact] = useState(false)
-  const navigate = useNavigate()
+
 
   const activeModal = (text, time) => {
     setShowModal(true);
@@ -20,11 +17,6 @@ const Contacts = () => {
     }, time)
   }
 
-  const columnWidths = {
-    name: '32%',
-    email: '38%',
-    phone: '20%',
-  }
 
   useEffect(() => {
     const getContacts = async () => {
@@ -38,7 +30,7 @@ const Contacts = () => {
       }
     }
     getContacts()
-  }, [deleteContact])
+  }, [])
 
   return (
     <div className="py-4 md:py-6 bg-gray-100">
@@ -57,36 +49,15 @@ const Contacts = () => {
             />
           )}
 
-          <div className="hidden sm:block  flex items-center gap-4 w-full">
-            <div className="flex flex-col sm:flex-row bg-blue-500 rounded-md shadow-md p-4 w-full">
-
-              <div className={`mb-2 sm:mb-0`} style={{ minWidth: `${columnWidths.name}` }}>
-                <h3 className="text-md text-white font-semibold">Nombre</h3>
-              </div>
-              <div className={`mb-2 sm:mb-0`} style={{ minWidth: `${columnWidths.email}` }}>
-                <h3 className="text-md text-white font-semibold">Email</h3>
-              </div>
-              <div className={`mb-2 sm:mb-0`} style={{ minWidth: `${columnWidths.phone}` }}>
-                <h3 className="text-md text-white font-semibold">Teléfono</h3>
-              </div>
-              <div className={`flex items-center justify-end mb-2 sm:mb-0`} style={{ minWidth: `10%` }}>
-                <FaPlus
-                  className="text-green-500 mr-2 cursor-pointer"
-                  title="Nuevo"
-                  onClick={() => navigate('/contacts/register')}
-                />
-              </div>
-
-            </div>
-          </div>
-
-          {contactList && (
-            <List
-              items={contactList}
-              columnWidths={columnWidths}
-              handleDelete={() => setDeleteContact(prevDeleteContact => !prevDeleteContact)}
-              type="contact"
-            />)}
+          <Table
+            headers={{
+              name: ['Nombre', 'Email', 'Teléfono'],
+              keys: ['name', 'email', 'phone']
+            }}
+            items={contactList}
+            type="contacts"
+            addButton={true}
+          />
 
         </div>
       </div>

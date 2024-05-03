@@ -1,18 +1,16 @@
-import { FaPlus, FaSearch, FaTrash } from 'react-icons/fa';
+import { FaSearch, FaTrash } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { apiService } from '../../services/apiService';
 import { helpers } from '../../services/helpers';
-import { Filter, Modal, List } from '../../components';
+import { Filter, Modal, Table } from '../../components';
 
 const Orders = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const [showFilters, setShowFilters] = useState(false)
   const [orderList, setOrderList] = useState([])
-  const [deleteOrder, setDeleteOrder] = useState(false)
   const { user } = useSelector(state => state.user)
 
   // Filters
@@ -22,7 +20,6 @@ const Orders = () => {
   const [date, setDate] = useState('')
   const [invoice, setInvoice] = useState('')
 
-  const navigate = useNavigate()
 
   const activeModal = (text, time) => {
     setShowModal(true);
@@ -35,13 +32,6 @@ const Orders = () => {
   const toggleFilters = () => {
     setShowFilters(!showFilters);
   };
-
-  const columnWidths = {
-    client_name: '40%',
-    status: '15%',
-    invoice_number: '15%',
-    created_at: '20%',
-  }
 
   useEffect(() => {
     const getOrders = async () => {
@@ -63,7 +53,7 @@ const Orders = () => {
       }
     }
     getOrders()
-  }, [deleteOrder])
+  }, [])
 
 
   const handleSearch = async () => {
@@ -221,41 +211,15 @@ const Orders = () => {
             />
           )}
 
-          <div className="flex orders-center gap-4 w-full">
-            <div className="flex flex-col sm:flex-row bg-blue-500 rounded-md shadow-md p-4 w-full">
-
-              <div className={`hidden sm:block mb-2 sm:mb-0 orders-center justify-center flex`} style={{ minWidth: `${columnWidths.client_name}` }}>
-                <h3 className="text-md text-white font-semibold">Cliente</h3>
-              </div>
-              <div className={`hidden sm:block mb-2 sm:mb-0`} style={{ minWidth: `${columnWidths.status}` }}>
-                <h3 className="text-md text-white font-semibold">Estado</h3>
-              </div>
-              <div className={`hidden sm:block mb-2 sm:mb-0`} style={{ minWidth: `${columnWidths.invoice_number}` }}>
-                <h3 className="text-md text-white font-semibold">Factura</h3>
-              </div>
-              <div className={`hidden sm:block mb-2 sm:mb-0 orders-center justify-center flex`} style={{ minWidth: `${columnWidths.created_at}` }}>
-                <h3 className="text-md text-white font-semibold">Fecha</h3>
-              </div>
-
-
-              <div className={`flex orders-center justify-center sm:justify-end items-center mb-0`} style={{ minWidth: `10%` }}>
-                <FaPlus
-                  className="text-green-500 mr-2 cursor-pointer"
-                  title="Nuevo"
-                  onClick={() => navigate('/orders/register')}
-                />
-              </div>
-
-            </div>
-          </div>
-
-          {orderList && (
-            <List
-              items={orderList}
-              columnWidths={columnWidths}
-              handleDelete={() => setDeleteOrder(prevDeleteOrder => !prevDeleteOrder)}
-              type="order"
-            />)}
+          <Table
+            headers={{
+              name: ['Cliente', 'Vendedor', 'Estado', 'Fecha', 'Factura'],
+              keys: ['client_name', 'seler_name', 'status', 'created_at', 'invoice_number']
+            }}
+            items={orderList}
+            type="orders"
+            addButton={true}
+          />
 
         </div>
       </div>

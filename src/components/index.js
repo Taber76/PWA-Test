@@ -2,6 +2,8 @@ export { Button } from './button';
 export { InputDropdown } from './input-dropdown';
 export { Filter } from './filter';
 export { Footer } from './footer';
+export { FormBasic } from './form-basic';
+export { FormUpdate } from './form-update';
 export { FormRegister } from './form-register';
 export { FormOrder } from './form-order';
 export { List } from './list'

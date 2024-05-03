@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { apiService } from '../../services/apiService';
-import { Modal, FormRegister } from '../../components';
+import { Modal, FormUpdate } from '../../components';
 
 const ContactUpdate = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const [formData, setFormData] = useState({});
   const location = useLocation();
-  const navegate = useNavigate()
+  const navigate = useNavigate()
 
   const activeModal = (text, time) => {
     setShowModal(true);
@@ -40,7 +40,7 @@ const ContactUpdate = () => {
       if (res.status === 202) {
         activeModal("Contacto actualizado correctamente.", 1500)
         setTimeout(() => {
-          navegate('/contacts')
+          navigate('/contacts')
         }, 1500)
       } else {
         activeModal("Error al intentar actualizar el contacto.", 2500)
@@ -80,11 +80,13 @@ const ContactUpdate = () => {
           />
         )}
 
-        <FormRegister
+        <FormUpdate
           formDetails={formDetail}
           handleChange={handleChange}
           onSubmit={handleSubmit}
           buttonText="Actualizar"
+          type="contact"
+          item_id={formData._id}
         />
 
       </div>

@@ -10,7 +10,7 @@ const Table = ({ headers, items, type, addButton }) => {
         <thead className="text-xs text-white uppercase bg-blue-500 dark:bg-gray-700 dark:text-gray-400">
           <tr className=''>
             {headers.name.map((header, index) => (
-              <th key={index} scope="col" className="px-3 py-2">
+              <th key={index} scope="col" className={`px-3 py-2 ${index === 0 ? '' : 'text-center'}`}>
                 {header}
               </th>
             ))}

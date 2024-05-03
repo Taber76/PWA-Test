@@ -1,16 +1,14 @@
-import { FaPlus } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { apiService } from '../../services/apiService';
-import { Modal, List } from '../../components';
+import { Modal, Table } from '../../components';
 
 const Users = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const [userList, setUserList] = useState([])
-  const [deleteUser, setDeleteUser] = useState(false)
   const navigate = useNavigate()
   const { user } = useSelector(state => state.user)
 
@@ -23,13 +21,6 @@ const Users = () => {
     }, time)
   }
 
-  const columnWidths = {
-    name: '20%',
-    username: '15%',
-    email: '30%',
-    phone: '15%',
-    role: '10%',
-  }
 
   useEffect(() => {
     const getUsers = async () => {
@@ -47,7 +38,7 @@ const Users = () => {
     } else if (user?.role === 'ADMIN') {
       getUsers()
     }
-  }, [deleteUser])
+  }, [])
 
   return (
     <div className="py-4 md:py-6 bg-gray-100">
@@ -66,42 +57,15 @@ const Users = () => {
             />
           )}
 
-          <div className="hidden sm:block flex items-center gap-4 w-full">
-            <div className="flex flex-col sm:flex-row bg-blue-500 rounded-md shadow-md p-4 w-full">
-
-              <div className={`mb-2 sm:mb-0`} style={{ minWidth: `${columnWidths.name}` }}>
-                <h3 className="text-md text-white font-semibold">Nombre</h3>
-              </div>
-              <div className={`mb-2 sm:mb-0`} style={{ minWidth: `${columnWidths.username}` }}>
-                <h3 className="text-md text-white font-semibold">Usuario</h3>
-              </div>
-              <div className={`mb-2 sm:mb-0`} style={{ minWidth: `${columnWidths.email}` }}>
-                <h3 className="text-md text-white font-semibold">Email</h3>
-              </div>
-              <div className={`mb-2 sm:mb-0`} style={{ minWidth: `${columnWidths.phone}` }}>
-                <h3 className="text-md text-white font-semibold">Teléfono</h3>
-              </div>
-              <div className={`mb-2 sm:mb-0`} style={{ minWidth: `${columnWidths.role}` }}>
-                <h3 className="text-md text-white font-semibold">Rol</h3>
-              </div>
-              <div className={`flex items-center justify-end mb-2 sm:mb-0`} style={{ minWidth: `10%` }}>
-                <FaPlus
-                  className="text-green-500 mr-2 cursor-pointer"
-                  title="Nuevo"
-                  onClick={() => navigate('/users/register')}
-                />
-              </div>
-
-            </div>
-          </div>
-
-          {userList && (
-            <List
-              items={userList}
-              columnWidths={columnWidths}
-              handleDelete={() => setDeleteUser(prevDeleteUser => !prevDeleteUser)}
-              type="user"
-            />)}
+          <Table
+            headers={{
+              name: ['Nombre', 'Usuario', 'Email', 'Teléfono', 'Rol'],
+              keys: ['name', 'username', 'email', 'phone', 'role']
+            }}
+            items={userList}
+            type="users"
+            addButton={true}
+          />
 
         </div>
       </div>
