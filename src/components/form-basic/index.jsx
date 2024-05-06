@@ -26,7 +26,7 @@ const FormBasic = ({ formDetails, handleChange, onSubmit, buttonText }) => {
         ))}
         <div className="flex justify-evenly mt-4">
           <Button type="submit" className="w-1/3">{buttonText}</Button>
-          <Button type="" onClick={() => navigate(-1)} className="w-1/3">Cancelar</Button>
+          <Button onClick={() => navigate(-1)} className="w-1/3">Cancelar</Button>
         </div>
       </form>
     </>

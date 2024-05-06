@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Button, Label, TextInput } from 'flowbite-react';
 
 import { apiService } from '../../services/apiService';
 import { setUser } from '../../store/userSlice';
@@ -53,8 +54,8 @@ const Login = () => {
 	return (
 		<div className="py-4 md:py-6">
 			<div className="flex flex-col text-center items-center">
-				<h2>Login</h2>
-				<form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-4 w-2/3">
+				<h2 className="text-2xl font-bold text-gray-700">Login</h2>
+				<form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-4 w-1/3">
 
 					{showModal && (
 						<Modal
@@ -67,27 +68,36 @@ const Login = () => {
 						/>
 					)}
 
-					<input
-						className="bg-blue-100 text-xs rounded p-2"
+					<TextInput
 						type="text"
+						placeholder="Nombre de usuario o email..."
+						required
 						name="username"
 						value={formData.username}
 						onChange={handleChange}
-						required
-						placeholder="Nombre de usuario o email..."
+						className='mb-2'
 					/>
 
-					<input
-						className="bg-blue-100 text-xs rounded p-2"
+					<TextInput
 						type="password"
+						placeholder="Contraseña..."
+						required
 						name="password"
 						value={formData.password}
 						onChange={handleChange}
-						required
-						placeholder="Contraseña..."
+						className='mb-2'
 					/>
 
-					<input type="submit" value="Ingresar" className="btn btn-primary py-2 rounded bg-blue-500 text-white" />
+					<div className="flex justify-evenly">
+						<Button
+							type="submit"
+							gradientDuoTone="tealToLime"
+							className="w-1/3"
+						>
+							INGRESAR
+						</Button>
+					</div>
+
 				</form>
 			</div>
 		</div>

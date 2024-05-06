@@ -1,5 +1,6 @@
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { Button } from 'flowbite-react';
 
 const Table = ({ headers, items, type, addButton }) => {
   const navigate = useNavigate()
@@ -20,11 +21,14 @@ const Table = ({ headers, items, type, addButton }) => {
               </th>
             ) : (
               <th scope="col" className="px-3 py-2 flex justify-center items-center mt-2 mb-2">
-                <FaPlus
-                  className="text-green-500 cursor-pointer"
-                  title="Nuevo"
+                <Button
+                  gradientDuoTone="greenToBlue"
                   onClick={() => navigate(`/${type}/register`)}
-                />
+                  pill
+                  size="sm"
+                >
+                  <span className="text-gray-100">NUEVO</span>
+                </Button>
               </th>
             )}
           </tr>
@@ -37,7 +41,7 @@ const Table = ({ headers, items, type, addButton }) => {
                   {item[key]}
                 </td>
               ))}
-              <td className="px-6 py-4 text-right">
+              <td className="px-6 py-4 text-center">
                 <a href="#" onClick={() => navigate(`/${type}/update`, { state: { item_id: item._id } })} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
               </td>
             </tr>

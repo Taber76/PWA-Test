@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { apiService } from '../../services/apiService';
-import { Modal, FormRegister } from '../../components';
+import { Modal, FormUpdate } from '../../components';
 
 const ItemUpdate = () => {
   const [showModal, setShowModal] = useState(false);
@@ -66,7 +66,7 @@ const ItemUpdate = () => {
   return (
     <div className="py-4 md:py-6">
       <div className="flex flex-col text-center items-center">
-        <h2 className="text-2xl font-bold text-gray-700">Actualiza los datos</h2>
+        <h2 className="text-2xl font-bold text-gray-500">Actualiza los datos</h2>
 
         {showModal && (
           <Modal
@@ -79,11 +79,13 @@ const ItemUpdate = () => {
           />
         )}
 
-        <FormRegister
+        <FormUpdate
           formDetails={formDetail}
           handleChange={handleChange}
           onSubmit={handleSubmit}
           buttonText="Actualizar"
+          type="item"
+          item_id={formData._id}
         />
 
       </div>

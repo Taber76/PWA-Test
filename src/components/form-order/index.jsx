@@ -166,9 +166,11 @@ const FormOrder = ({
       {(!updateType || selectedClient) &&
         <div>
 
-          <div className="flex flex-col flex-1 sm:w-full w-1/3 border border-gray-300 rounded p-2 m-1" style={{ width: '100%' }}>
-            <span className="text-xs text-gray-500" style={{ textAlign: 'left' }}>Estado</span>
-            <span className="bg-blue-100 text-xs rounded p-1 mt-1 block" style={{ minHeight: '1.5rem' }}>{helpers.statusDictionary[formData?.status] || 'Borrador'}</span>
+          <div className="flex flex-col sm:flex-row items-center justify-between w-full">
+            <div className="flex flex-col flex-1 sm:w-full w-full border border-gray-300 rounded p-2 m-1">
+              <span className="text-xs text-gray-500" style={{ textAlign: 'left' }}>Estado</span>
+              <span className="bg-blue-100 text-xs rounded p-1 mt-1 block" style={{ minHeight: '1.5rem' }}>{helpers.statusDictionary[formData?.status] || 'Borrador'}</span>
+            </div>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between w-full">
@@ -176,7 +178,7 @@ const FormOrder = ({
             <div className="flex flex-col flex-1 sm:w-full border border-gray-300 rounded p-2 m-1" style={{ width: '100%' }}>
               <span className="text-xs text-gray-500" style={{ textAlign: 'left' }}>Nombre del cliente</span>
               <InputDropdown
-                className="bg-blue-100 text-xs rounded p-1 mt-1 w-full"
+                className="bg-blue-100 text-xs rounded p-1 mt-1 border-none w-full"
                 type="text"
                 required={true}
                 initValue={formData?.client_name}
@@ -261,9 +263,9 @@ const FormOrder = ({
             <div className="flex flex-col sm:flex-row rounded-md shadow-md p-1 w-full">
 
               {/* Product description */}
-              <div className="mb-2 sm:mb-0 flex items-center w-full sm:w-[69%] sm:block" >
+              <div className="mb-2 sm:mb-0 flex items-center w-full sm:w-[69%] sm:block mr-1" >
                 <InputDropdown
-                  className={"text-sm font-semibold w-full bg-blue-100"}
+                  className={"text-sm font-semibold w-full bg-blue-100 border-none rounded text-left"}
                   type={"text"}
                   placeholder={"Descripción del producto"}
                   required={true}
@@ -278,9 +280,9 @@ const FormOrder = ({
               </div>
 
               {/* Quantity */}
-              <div className="mb-2 sm:mb-0 flex items-center  w-3/4 sm:w-[8%]">
+              <div className="mb-2 sm:mb-0 flex items-center w-3/4 sm:w-[8%] mr-1">
                 <input
-                  className="text-sm w-full bg-blue-200 text-right sm:text-left"
+                  className="text-sm w-full bg-blue-200 text-right border-none rounded px-0"
                   type="number"
                   inputMode="numeric"
                   onWheel={(e) => e.preventDefault()}
@@ -291,9 +293,9 @@ const FormOrder = ({
               </div>
 
               {/* Sale price */}
-              <div className="mb-2 sm:mb-0 flex items-center w-3/4 sm:w-[9%]">
+              <div className="mb-2 sm:mb-0 flex items-center w-3/4 sm:w-[9%] mr-1">
                 <input
-                  className="text-sm  w-full pr-1 bg-blue-100 text-left text-right sm:text-left"
+                  className="text-sm w-full px-0 bg-blue-100 text-right border-none rounded"
                   type="number"
                   inputMode="numeric"
                   onWheel={(e) => e.preventDefault()}
@@ -305,7 +307,7 @@ const FormOrder = ({
 
               {/* Total price of product */}
               <div className="mb-2 sm:mb-0 flex items-center justify-end w-3/4 sm:w-[9%]">
-                <span className="text-sm font-semibold w-full bg-blue-200 pr-1 text-right" >{isNaN(product.quantity * product.sale_price) ? 0 : product.quantity * product.sale_price}</span>
+                <span className="text-sm py-[8px] h-full font-semibold w-full bg-blue-200 pr-1 text-right border-none rounded" >{isNaN(product.quantity * product.sale_price) ? 0 : product.quantity * product.sale_price}</span>
                 <span className="sm:hidden text-sm ml-1 font-semibold w-full text-left" >Total</span>
               </div>
 
@@ -334,33 +336,33 @@ const FormOrder = ({
         </div>
         <div className="flex flex-col w-2/3">
 
-          <div className='flex items-center w-full bg-blue-100 mb-1'>
+          <div className='flex items-center w-full bg-blue-100 mb-1 py-[8px]'>
             <div className="text-sm flex items-center w-1/2 justify-end">
               <p>Subtotal</p>
             </div>
-            <div className="text-sm font-semibold ml-1 flex w-1/2 justify-end">
+            <div className="text-sm font-semibold ml-1 flex w-1/2 justify-end pr-1">
               <p>{subtotal}</p>
             </div>
           </div>
 
-          <div className='flex items-center w-full bg-blue-200 mb-1'>
+          <div className='flex items-center w-full bg-blue-200 mb-1 pr-1'>
             <div className="text-sm flex items-center w-1/2 justify-end">
               <p>Descuento (%)</p>
             </div>
             <div className="text-sm font-semibold ml-1 flex w-1/2 justify-end">
               <input
-                className="text-sm w-1/5 bg-blue-200 text-right"
+                className="text-sm w-1/5 p-0 mr-1 bg-blue-200 text-right border-none rounded"
                 type="number"
                 inputMode="numeric"
                 onWheel={(e) => e.preventDefault()}
                 value={discountPercentage}
                 onChange={(e) => setDiscountPercentage(e.target.value)}
               />
-              <p className="text-sm w-4/5 bg-blue-200 text-right">{discount}</p>
+              <p className="text-sm w-4/5 bg-blue-200 text-right py-[8px]">{discount}</p>
             </div>
           </div>
 
-          <div className='flex items-center w-full bg-blue-100 mb-2'>
+          <div className='flex items-center w-full bg-blue-100 mb-2 py-[8px] pr-1'>
             <div className="text-sm flex items-center w-1/2 justify-end">
               <p>IVA</p>
             </div>
@@ -369,11 +371,11 @@ const FormOrder = ({
             </div>
           </div>
 
-          <div className='flex items-center w-full bg-blue-300'>
+          <div className='flex items-center w-full bg-blue-300 py-[8px] pr-1'>
             <div className="text-sm flex items-center w-1/2 justify-end">
               <p>TOTAL</p>
             </div>
-            <div className="text-sm font-semibold ml-1 flex w-1/2 justify-end">
+            <div className="text-md font-semibold ml-1 flex w-1/2 justify-end">
               <p>{total}</p>
             </div>
           </div>

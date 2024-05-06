@@ -35,8 +35,9 @@ const Contacts = () => {
   return (
     <div className="py-4 md:py-6 bg-gray-100">
       <div className="flex flex-col text-center items-center">
+
         <h2 className="text-2xl font-bold text-gray-700">Contactos</h2>
-        <div className="flex flex-col gap-4 mt-4 w-2/3">
+        <div className="flex flex-col gap-4 mt-4 w-full px-4">
 
           {showModal && (
             <Modal
