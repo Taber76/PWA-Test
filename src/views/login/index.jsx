@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Button, Label, TextInput } from 'flowbite-react';
+import { Button, TextInput, Spinner } from 'flowbite-react';
 
 import { apiService } from '../../services/apiService';
 import { setUser } from '../../store/userSlice';
@@ -11,6 +11,7 @@ const Login = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [modalText, setModalText] = useState('');
 	const [formData, setFormData] = useState({ username: 'Administrador', password: '12345678Aa' }); // for testing
+	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate()
 
@@ -24,6 +25,7 @@ const Login = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setIsLoading(true)
 		try {
 			const res = await apiService.postPut('POST', 'user/login', formData);
 			if (res.status === 202 || res.status === 302) {
@@ -43,6 +45,8 @@ const Login = () => {
 			}
 		} catch (error) {
 			activeModal("Error interno del servidor, pruebe más tarde.", 3000)
+		} finally {
+			setIsLoading(false)
 		}
 	};
 
@@ -76,6 +80,7 @@ const Login = () => {
 						value={formData.username}
 						onChange={handleChange}
 						className='mb-2'
+						disabled={isLoading}
 					/>
 
 					<TextInput
@@ -86,6 +91,7 @@ const Login = () => {
 						value={formData.password}
 						onChange={handleChange}
 						className='mb-2'
+						disabled={isLoading}
 					/>
 
 					<div className="flex justify-evenly">
@@ -93,8 +99,13 @@ const Login = () => {
 							type="submit"
 							gradientDuoTone="tealToLime"
 							className="w-1/3"
+							disabled={isLoading}
 						>
-							INGRESAR
+							{isLoading ? (
+								<Spinner size="sm" />
+							) : (
+								'INGRESAR'
+							)}
 						</Button>
 					</div>
 

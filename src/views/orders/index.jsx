@@ -214,7 +214,8 @@ const Orders = () => {
           <Table
             headers={{
               name: ['Cliente', 'Vendedor', 'Estado', 'Fecha', 'Factura'],
-              keys: ['client_name', 'seler_name', 'status', 'created_at', 'invoice_number']
+              keys: ['client_name', 'seler_name', 'status', 'created_at', 'invoice_number'],
+              filter: ['text', '', 'text', '', 'text'],
             }}
             items={orderList}
             type="orders"

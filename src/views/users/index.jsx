@@ -60,7 +60,8 @@ const Users = () => {
           <Table
             headers={{
               name: ['Nombre', 'Usuario', 'Email', 'Teléfono', 'Rol'],
-              keys: ['name', 'username', 'email', 'phone', 'role']
+              keys: ['name', 'username', 'email', 'phone', 'role'],
+              filter: ['text', 'text', '', 'text', 'text'],
             }}
             items={userList}
             type="users"

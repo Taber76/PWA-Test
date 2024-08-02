@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { apiService } from '../../services/apiService';
 import { Modal, Table } from '../../components';
+import { setItems } from '../../store/itemsSlice';
 
 const Items = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
-  const [itemList, setItemList] = useState([])
+  const items = useSelector(state => state.items.items)
+  const filteredItems = useSelector(state => state.items.filteredItems)
+  const dispatch = useDispatch();
 
   const activeModal = (text, time) => {
     setShowModal(true);
@@ -17,19 +21,37 @@ const Items = () => {
   }
 
   useEffect(() => {
+    const maxAttempts = 3
+    let attempts = 0
+
     const getItems = async () => {
       const res = await apiService.get('item/getall')
       if (res.status === 202) {
         const data = await res.json()
         const items = data.items.map(({ profit_margin, supliers_id, created_at, updated_at, ...rest }) => rest)
-        setItemList(items)
+        dispatch(setItems(items))
       } else {
         activeModal('No se han podido cargar los articulos.')
       }
     }
 
-    getItems()
-  }, [])
+    const attemptFetch = () => {
+      if (items.length === 0 && attempts < maxAttempts) {
+        attempts++
+        getItems()
+      }
+      if (attempts >= maxAttempts) {
+        clearInterval(interval)
+      }
+    }
+
+    if (items.length === 0) {
+      getItems()
+      const interval = setInterval(attemptFetch, 10000)
+      return () => clearInterval(interval)
+    }
+
+  }, [filteredItems, items])
 
   return (
     <div className="py-4 md:py-6 bg-gray-100">
@@ -52,11 +74,13 @@ const Items = () => {
           <Table
             headers={{
               name: ['Descripción', 'P. de venta', 'P. de compra', 'Stock'],
-              keys: ['description', 'sale_price', 'purchase_price', 'stock']
+              keys: ['description', 'sale_price', 'purchase_price', 'stock'],
+              filter: ['text', 'number', 'number', 'number'],
             }}
-            items={itemList}
+            items={filteredItems}
             type="items"
             addButton={true}
+            dropdownFilterOffset='-50px'
           />
 
         </div>

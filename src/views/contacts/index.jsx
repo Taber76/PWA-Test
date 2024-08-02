@@ -53,7 +53,8 @@ const Contacts = () => {
           <Table
             headers={{
               name: ['Nombre', 'Email', 'Teléfono'],
-              keys: ['name', 'email', 'phone']
+              keys: ['name', 'email', 'phone'],
+              filter: ['text', '', ''],
             }}
             items={contactList}
             type="contacts"

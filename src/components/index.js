@@ -1,6 +1,7 @@
 export { Button } from './button';
 export { InputDropdown } from './input-dropdown';
-export { Filter } from './filter';
+export { Filter } from './filterOLD';
+export { FilterText } from './filter-text';
 export { Footer } from './footer';
 export { FormBasic } from './form-basic';
 export { FormUpdate } from './form-update';
@@ -9,5 +10,6 @@ export { FormOrder } from './form-order';
 export { List } from './list'
 export { Modal } from './modal';
 export { ModalInteractive } from './modal-interactive';
+export { PrivateRoute } from './private';
 export { NavBar } from './navBar';
 export { Table } from './table'
