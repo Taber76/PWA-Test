@@ -31,6 +31,7 @@ const Table = ({ headers, items, type, addButton, dropdownFilterOffset = '0' }) 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
         <thead className="text-xs text-white uppercase bg-blue-500 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             {headers.name.map((header, index) => (
@@ -65,6 +66,7 @@ const Table = ({ headers, items, type, addButton, dropdownFilterOffset = '0' }) 
             )}
           </tr>
         </thead>
+
         <tbody>
           {currentItems.map((item, index) => (
             <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -81,32 +83,34 @@ const Table = ({ headers, items, type, addButton, dropdownFilterOffset = '0' }) 
         </tbody>
       </table>
 
-      {/* Controles de paginación */}
-      <div className="flex justify-center">
-        <div className="flex justify-between m-2">
+      {/* Pagination buttons */}
+      {totalPages > 1 && (
+        <div className="flex justify-center">
+          <div className="flex justify-between m-2">
 
-          <Button
-            gradientDuoTone="greenToBlue"
-            onClick={handlePrevPage}
-            pill
-            size="sm"
-          >
-            <span className="text-gray-100">Anterior</span>
-          </Button>
+            <Button
+              gradientDuoTone="greenToBlue"
+              onClick={handlePrevPage}
+              pill
+              size="sm"
+            >
+              <span className="text-gray-100">Anterior</span>
+            </Button>
 
-          <span className="p-2 flex items-center text-gray-600 font-bold">{currentPage} de {totalPages}</span>
+            <span className="p-2 flex items-center text-gray-600 font-bold">{currentPage} de {totalPages}</span>
 
-          <Button
-            gradientDuoTone="greenToBlue"
-            onClick={handleNextPage}
-            pill
-            size="sm"
-          >
-            <span className="text-gray-100">Siguiente</span>
-          </Button>
+            <Button
+              gradientDuoTone="greenToBlue"
+              onClick={handleNextPage}
+              pill
+              size="sm"
+            >
+              <span className="text-gray-100">Siguiente</span>
+            </Button>
 
+          </div>
         </div>
-      </div>
+      )}
 
     </div>
   );
