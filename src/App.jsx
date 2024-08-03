@@ -15,7 +15,7 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/instructions" element={<Instructions />} />
-
+					{/* <Route element={<PrivateRoute />}>*/}
 					<Route path="/contacts" element={<Contacts />} />
 					<Route path="/contacts/register" element={<ContactRegister />} />
 					<Route path="/contacts/update" element={<ContactUpdate />} />
@@ -29,7 +29,7 @@ function App() {
 					<Route path="/users/register" element={<UserRegister />} />
 					<Route path="/users/update" element={<UserUpdate />} />
 					<Route path="/users/password-change" element={<PasswordChange />} />
-
+					{/* </Route> */}
 				</Routes>
 				<Footer />
 			</Router>

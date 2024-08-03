@@ -6,12 +6,21 @@ import { apiService } from '../../services/apiService';
 import { helpers } from '../../services/helpers';
 import { Filter, Modal, Table } from '../../components';
 
+// Borrar
+import { Navigate } from 'react-router-dom';
+
 const Orders = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const [showFilters, setShowFilters] = useState(false)
   const [orderList, setOrderList] = useState([])
   const { user } = useSelector(state => state.user)
+
+  // Borrar
+  if (!user) {
+    return <Navigate to="/login" />
+  }
+
 
   // Filters
   const [client, setClient] = useState('')

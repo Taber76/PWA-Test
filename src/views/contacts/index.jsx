@@ -3,10 +3,20 @@ import { useState, useEffect } from 'react';
 import { apiService } from '../../services/apiService';
 import { Modal, Table } from '../../components';
 
+// Borrar
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 const Contacts = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const [contactList, setContactList] = useState([])
+
+  // Borrar
+  const user = useSelector(state => state.user.user)
+  if (!user) {
+    return <Navigate to="/login" />
+  }
 
 
   const activeModal = (text, time) => {

@@ -5,6 +5,9 @@ import { useSelector } from 'react-redux';
 import { apiService } from '../../services/apiService';
 import { Modal, Table } from '../../components';
 
+// Borrar
+import { Navigate } from 'react-router-dom';
+
 const Users = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
@@ -12,6 +15,10 @@ const Users = () => {
   const navigate = useNavigate()
   const { user } = useSelector(state => state.user)
 
+  // Borrar
+  if (!user) {
+    return <Navigate to="/login" />
+  }
 
   const activeModal = (text, time) => {
     setShowModal(true);

@@ -5,12 +5,21 @@ import { apiService } from '../../services/apiService';
 import { Modal, Table } from '../../components';
 import { setItems } from '../../store/itemsSlice';
 
+// Borrar
+import { Navigate } from 'react-router-dom';
+
 const Items = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const items = useSelector(state => state.items.items)
   const filteredItems = useSelector(state => state.items.filteredItems)
   const dispatch = useDispatch();
+
+  // Borrar
+  const user = useSelector(state => state.user.user)
+  if (!user) {
+    return <Navigate to="/login" />
+  }
 
   const activeModal = (text, time) => {
     setShowModal(true);
