@@ -19,17 +19,17 @@ const manifest = {
     display: "standalone",
     background_color: "#ffffff",
     theme_color: "#000000",
-    description: "My first Progressive Web App",
+    description: "Distribuidora",
     icons: [
       {
         src: "/warehouse_192x192.webp",
         sizes: "192x192",
-        type: "image/png",
+        type: "image/webp",
       },
       {
         src: "/warehouse_512x512.webp",
         sizes: "512x512",
-        type: "image/png",
+        type: "image/webp",
       },
     ],
   },
