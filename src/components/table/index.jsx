@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'flowbite-react';
 import { FilterText } from '../filter-text';
 
-const Table = ({ headers, items, type, addButton, dropdownFilterOffset = '0' }) => {
+const Table = ({ headers, items, setItems, type, addButton, dropdownFilterOffset = '0' }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 30;
 
@@ -42,6 +42,7 @@ const Table = ({ headers, items, type, addButton, dropdownFilterOffset = '0' }) 
                     <FilterText
                       filterName={headers.keys[index]}
                       items={items}
+                      setItems={setItems}
                       dropdownOffset={dropdownFilterOffset}
                     />
                   )}

@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { apiService } from '../../services/apiService';
 import { Modal, FormUpdate } from '../../components';
+import { updateItem } from '../../store/itemsSlice';
 
 const ItemUpdate = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const [formData, setFormData] = useState({});
   const location = useLocation();
-  const navegate = useNavigate()
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+
 
   const activeModal = (text, time) => {
     setShowModal(true);
@@ -36,11 +40,12 @@ const ItemUpdate = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await apiService.postPut('PUT', 'item/update', formData)
+      const res = await apiService.postPut('PUT', `item/update/${formData._id}`, formData)
       if (res.status === 202) {
-        activeModal("Productoactualizado correctamente.", 1500)
+        activeModal("Producto actualizado correctamente.", 1500)
+        dispatch(updateItem({ id: formData._id, updates: formData }))
         setTimeout(() => {
-          navegate('/contacts')
+          navigate('/items')
         }, 1500)
       } else {
         activeModal("Error al intentar actualizar el producto.", 2500)
@@ -58,7 +63,7 @@ const ItemUpdate = () => {
   const formDetail = [
     { type: 'text', name: 'description', value: formData.description, onChange: handleChange, required: true, placeholder: 'Descripcion del item (requerido).' },
     { type: 'text', name: 'purchase_price', value: formData.purchase_price, onChange: handleChange, required: false, placeholder: 'Precio de compra.' },
-    { type: 'email', name: 'sale_price', value: formData.sale_price, onChange: handleChange, required: false, placeholder: 'Precio de venta.' },
+    { type: 'text', name: 'sale_price', value: formData.sale_price, onChange: handleChange, required: false, placeholder: 'Precio de venta.' },
     { type: 'text', name: 'stock', value: formData.stock, onChange: handleChange, required: false, placeholder: 'Stock.' },
   ]
 

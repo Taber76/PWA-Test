@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { apiService } from '../../services/apiService';
 import { Modal, Table } from '../../components';
-import { setItems } from '../../store/itemsSlice';
+import { setItems, setItemsFilter } from '../../store/itemsSlice';
 
 // Borrar
 import { Navigate } from 'react-router-dom';
@@ -87,6 +87,7 @@ const Items = () => {
               filter: ['text', 'number', 'number', 'number'],
             }}
             items={filteredItems}
+            setItems={setItemsFilter}
             type="items"
             addButton={true}
             dropdownFilterOffset='-50px'

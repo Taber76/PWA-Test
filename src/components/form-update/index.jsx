@@ -2,14 +2,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Label, TextInput } from 'flowbite-react';
+import { useDispatch } from 'react-redux';
 
 import { apiService } from '../../services/apiService';
 import { ModalInteractive } from '../modal-interactive';
+import { deleteItem } from '../../store/itemsSlice';
 
 const FormUpdate = ({ formDetails, handleChange, onSubmit, buttonText, type, item_id }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const handleTrash = () => {
     setShowModal(true);
@@ -20,6 +23,9 @@ const FormUpdate = ({ formDetails, handleChange, onSubmit, buttonText, type, ite
     try {
       const res = await apiService.delete(`${type}/delete/${item_id}`);
       if (res.status === 202) {
+
+        if (type === 'item') dispatch(deleteItem(item_id)) // Cambiar ----------------
+
         setShowModal(false);
         navigate(`/${type}s`)
       } else {

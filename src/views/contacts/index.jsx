@@ -64,7 +64,7 @@ const Contacts = () => {
             headers={{
               name: ['Nombre', 'Email', 'Teléfono'],
               keys: ['name', 'email', 'phone'],
-              filter: ['text', '', ''],
+              filter: ['', '', ''],
             }}
             items={contactList}
             type="contacts"

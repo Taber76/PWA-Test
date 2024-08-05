@@ -68,7 +68,7 @@ const Users = () => {
             headers={{
               name: ['Nombre', 'Usuario', 'Email', 'Teléfono', 'Rol'],
               keys: ['name', 'username', 'email', 'phone', 'role'],
-              filter: ['text', 'text', '', 'text', 'text'],
+              filter: ['', '', '', '', ''],
             }}
             items={userList}
             type="users"

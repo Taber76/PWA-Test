@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { apiService } from '../../services/apiService';
 import { Modal, FormBasic } from '../../components';
-
+import { addItem } from '../../store/itemsSlice';
 
 const ItemRegister = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [modalText, setModalText] = useState('');
 	const [formData, setFormData] = useState({});
 	const navigate = useNavigate()
+	const dispatch = useDispatch();
 
 	const activeModal = (text, time) => {
 		setShowModal(true);
@@ -29,6 +31,8 @@ const ItemRegister = () => {
 		try {
 			const res = await apiService.postPut("POST", "item/register", formData);
 			if (res.status === 201) {
+				const data = await res.json()
+				dispatch(addItem(data.item))
 				activeModal("Item registrado correctamente.", 1500)
 				setTimeout(() => {
 					navigate('/items')

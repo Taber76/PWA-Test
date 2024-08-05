@@ -42,22 +42,27 @@ const itemsSlice = createSlice({
       applyFiltersAndSorting(state);
     },
 
+    addItem: (state, action) => {
+      state.items.push(action.payload);
+      applyFiltersAndSorting(state);
+    },
+
     updateItem: (state, action) => {
       const { id, updates } = action.payload;
       state.items = state.items.map(item =>
-        item.id === id ? { ...item, ...updates } : item
+        item._id === id ? { ...item, ...updates } : item
       );
       applyFiltersAndSorting(state);
     },
 
     deleteItem: (state, action) => {
-      const { id } = action.payload;
-      state.items = state.items.filter(item => item.id !== id);
+      const id = action.payload;
+      state.items = state.items.filter(item => item._id !== id);
       applyFiltersAndSorting(state);
     },
   },
 });
 
-export const { setItems, setItemsFilter, updateItem, deleteItem } = itemsSlice.actions;
+export const { setItems, setItemsFilter, addItem, updateItem, deleteItem } = itemsSlice.actions;
 export default itemsSlice.reducer;
 
